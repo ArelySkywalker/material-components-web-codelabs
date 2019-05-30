@@ -2,6 +2,7 @@
 @import "@material/drawer/mdc-drawer";
 @import "@material/list/mdc-list";
 @import "@material/image-list/mdc-image-list";
+@import "@material/ripple/mixins";
 
 .home {
   display: flex; // Flexbox is used to easily arrange the persistent drawer and content side-by-side
@@ -10,6 +11,29 @@
 // Aside Menu
 .shrine-logo-drawer { display: block; width: 48px; padding: 40px 0 0; margin: 0 auto; fill: currentColor; }
 .shrine-title       { text-align: center; margin: 5px auto; }
+
+.shrine-drawer {
+  @include mdc-drawer-fill-color-accessible(primary);
+  // Drawer defaults to a higher z-index, but we aren't overlaying it over anything
+  @include mdc-drawer-z-index(0);
+
+  text-transform: uppercase;
+
+  .mdc-list {
+    margin: 70px 5px auto 5px;
+  }
+
+  .mdc-list-item {
+    border-radius: 6px;
+    justify-content: center;
+  }
+
+  // This needs 3-class specificity to override MDC Drawer styles
+  .mdc-list .mdc-list-item {
+    @include mdc-states-activated(#fff);
+  }
+}
+
 
 // Product List
 .product-list       { @include mdc-image-list-standard-columns(4); overflow: auto; }
